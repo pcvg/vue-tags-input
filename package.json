@@ -1,14 +1,15 @@
 {
-  "name": "@johmun/vue-tags-input",
-  "version": "2.1.0",
+  "name": "@sipec/vue3-tags-input",
+  "version": "3.0.3",
   "author": "Johannes Munari <johannesm@hotmail.de>",
   "license": "MIT",
-  "description": "A tags input component for VueJS with autocompletion, custom validation, templating and much more",
+  "description": "A tags input component for Vue 3 with autocompletion, custom validation, templating and much more",
   "homepage": "http://www.vue-tags-input.com",
   "private": false,
   "keywords": [
     "javascript",
     "vue",
+    "vue3",
     "tags",
     "vue-tags-input",
     "vue-component",
@@ -16,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/JohMun/vue-tags-input.git"
+    "url": "https://github.com/sipec/vue-tags-input.git"
   },
   "main": "dist/vue-tags-input.js",
   "scripts": {
@@ -34,29 +35,33 @@
     "*.js": "eslint",
     "*.vue": "eslint"
   },
+  "files": [
+    "dist/*",
+    "vue-tags-input/*"
+  ],
   "peerDependencies": {
-    "vue": "2.x"
+    "vue": "3.x"
   },
   "dependencies": {
-    "vue": "^2.6.10"
+    "vue": "^3.0.0-beta.1"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/polyfill": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
-    "@hydrant/eslint-config": "^2.0.1",
+    "@vue/compiler-sfc": "^3.0.11",
     "autoprefixer": "^9.4.3",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "clean-webpack-plugin": "^1.0.0",
     "copy-webpack-plugin": "^4.5.1",
     "cross-env": "^5.1.4",
     "css-loader": "^2.0.2",
-    "documentation": "^9.1.1",
-    "eslint": "^5.10.0",
-    "eslint-plugin-vue": "^5.0.0-beta.3",
+    "documentation": "^13.2.4",
+    "eslint": "^7.25.0",
+    "eslint-plugin-vue": "^7.9.0",
     "fast-deep-equal": "^2.0.1",
     "file-loader": "^3.0.1",
     "html-webpack-plugin": "^3.2.0",
@@ -73,10 +78,10 @@
     "testcafe": "^0.23.3",
     "testcafe-vue-selectors": "^3.0.0",
     "url-loader": "^1.1.2",
-    "vue-loader": "^15.4.2",
-    "vue-router": "^3.0.1",
+    "vue-cli-plugin-vue-next": "~0.1.4",
+    "vue-loader": "^16.2.0",
+    "vue-router": "^4.0.6",
     "vue-style-loader": "^4.1.2",
-    "vue-template-compiler": "^2.6.10",
     "webpack": "^4.28.1",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2",
@@ -88,7 +93,7 @@
       "ecmaVersion": 2017,
       "sourceType": "module"
     },
-    "extends": "@hydrant/eslint-config/vue",
+    "extends": "plugin:vue/vue3-recommended",
     "rules": {
       "vue/max-attributes-per-line": "off",
       "vue/no-use-v-if-with-v-for": "off",

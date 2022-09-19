@@ -1,8 +1,10 @@
 # vue-tags-input
 
-A tags input component for VueJS with autocompletion, custom validation, templating and much more
+A tags input component for Vue 3 with autocompletion, custom validation, templating and much more
 
-[Demo & Docs](http://www.vue-tags-input.com)
+Forked from [@johmun/vue-tags-input](https://www.npmjs.com/package/@johmun/vue-tags-input), which you should use instead if your project is on Vue 2. 
+
+[Demo & Docs](http://www.vue-tags-input.com) (for the original version)
 
 ## Features
 
@@ -24,12 +26,12 @@ A tags input component for VueJS with autocompletion, custom validation, templat
 
 NPM
 ```
-npm install @johmun/vue-tags-input
+npm install @sipec/vue3-tags-input
 ```
 
 CDN
 ```
-<script src="https://unpkg.com/@johmun/vue-tags-input/dist/vue-tags-input.js"></script>
+<script src="https://unpkg.com/@sipec/vue3-tags-input/dist/vue-tags-input.js"></script>
 ```
 
 ## Usage
@@ -48,7 +50,7 @@ CDN
 
 ```javascript
 <script>
-import VueTagsInput from '@johmun/vue-tags-input';
+import VueTagsInput from "@sipec/vue3-tags-input";
 
 export default {
   components: {
@@ -63,6 +65,10 @@ export default {
 };
 </script>
 ```
+
+## Migration From Vue 2
+
+This version is faithful to the original spec. The only thing you'll have to change is replacing any usages of `tags.sync` with `vmodel:tags` in the props
 
 ## License
 

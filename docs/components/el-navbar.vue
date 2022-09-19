@@ -124,7 +124,7 @@ export default {
   },
   methods: {
     toggleStatus(index) {
-      this.$set(this.linkStatus, index, !this.linkStatus[index]);
+      this.linkStatus[index] = !this.linkStatus[index];
     },
     goHome() {
       this.$router.push({ path: '/' });

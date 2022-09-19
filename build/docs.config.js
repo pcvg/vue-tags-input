@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 const ip = require('ip');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const mode = process.env.NODE_ENV === 'development' ? 'development' : 'production';
@@ -112,7 +112,7 @@ module.exports = {
       '@johmun/vue-tags-input': resolve('../vue-tags-input/vue-tags-input.vue'),
       '@tag-input': resolve('../vue-tags-input/tag-input.vue'),
       'colors': resolve('../docs/colors.scss'),
-      'vue$': 'vue/dist/vue.esm.js',
+      'vue': '@vue/runtime-dom',
     },
   },
   devServer: {

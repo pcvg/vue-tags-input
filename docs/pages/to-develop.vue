@@ -5,8 +5,8 @@
     <button type="button" name="button" @click="tags.splice(1, 1)">delete tag</button>
     <vue-tags-input
       v-model="tag"
+      v-model:tags="tags"
       class="tags-input"
-      :tags.sync="tags"
       :allow-edit-tags="true"
       :separators="[',', ',']"
       :delete-on-backspace="true"

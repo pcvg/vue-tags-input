@@ -1,7 +1,7 @@
 'use strict';
 const path = require('path');
 const CleanPlugin = require('clean-webpack-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 
 const resolve = src => path.resolve(__dirname, src);
 
@@ -74,7 +74,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
+      'vue': '@vue/runtime-dom',
     },
   },
   devtool: '#source-map',

@@ -49,7 +49,7 @@ export default {
    * @model
    * @default ''
    */
-  value: {
+  modelValue: {
     type: String,
     default: '',
     required: true,
@@ -341,4 +341,9 @@ export default {
     default: true,
     type: Boolean,
   },
+  // event handlers
+  onBeforeAddingTag: Function,
+  onBeforeDeletingTag: Function,
+  onBeforeEditingTag: Function,
+  onBeforeSavingTag: Function,
 };

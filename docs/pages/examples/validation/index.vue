@@ -70,9 +70,8 @@
           if the user does a action like adding, editing or deleting a tag.
         </p>
         <p>
-          If you want updates, if vue-tags-input detects unvalidated tags,
-          you can use the <span class="code">.sync</span> modifier:
-          <span class="code">:tags.sync="tags"</span>
+          If you want updates when vue-tags-input detects unvalidated tags,
+          you can add <span class="code">v-model:tags="tags"</span>
         </p>
         <p>
           Another way would be to validate tags by yourself
