@@ -1,5 +1,5 @@
 {
-  "name": "@sipec/vue3-tags-input",
+  "name": "@pcvg/vue3-tags-input",
   "version": "3.0.3",
   "author": "Johannes Munari <johannesm@hotmail.de>",
   "license": "MIT",
@@ -17,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/sipec/vue-tags-input.git"
+    "url": "https://github.com/pcvg/vue-tags-input.git"
   },
   "main": "dist/vue-tags-input.js",
   "scripts": {
@@ -85,7 +85,8 @@
     "webpack": "^4.28.1",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.1.10",
+    "vuedraggable": "^4.1.0"
   },
   "eslintConfig": {
     "parserOptions": {

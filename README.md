@@ -21,6 +21,7 @@ Forked from [@johmun/vue-tags-input](https://www.npmjs.com/package/@johmun/vue-t
 * Delete tags on backspace
 * Add tags on paste
 * Examples & Docs
+* Drag and Drop
 
 ## Install
 
@@ -64,6 +65,25 @@ export default {
   },
 };
 </script>
+```
+
+## Usage with draggable
+Draggable is disabled by default. Set prop `:is-draggable` to true to enable it. You can also set `:draggable-handle` to true to enable handle which can be styled with css class `.handle`. Classes for ghost-class and drag-class are `.ghost-tag` and `.drag-tag`.
+
+On drop `tag-order-changed` is emitted with array of tags in new order. Use this array to update your tags to save the new order.
+
+```html
+<template>
+  <div>
+    <vue-tags-input
+      v-model="tag"
+      :tags="tags"
+      :is-draggable="true"
+      @tags-changed="newTags => tags = newTags"
+      @tag-order-changed="newTags => tags = newTags"
+    />
+  </div>
+</template>
 ```
 
 ## Migration From Vue 2

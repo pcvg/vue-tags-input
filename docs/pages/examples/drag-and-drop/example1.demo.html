@@ -1,0 +1,8 @@
+<vue-tags-input
+    v-model="tag"
+    :list="tags"
+    :validation="validation"
+    :is-draggable="true"
+    :draggable-handle="true"
+    @tags-changed="newTags => tags = newTags"
+    @tag-order-changed="newTags => tags = newTags"/>

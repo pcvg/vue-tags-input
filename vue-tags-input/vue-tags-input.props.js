@@ -150,6 +150,16 @@ export default {
     default: false,
   },
   /**
+   * @description Property to set type vue-tags-input.
+   * @property {props}
+   * @type {String}
+   * @default text
+   */
+  inputType: {
+    type: String,
+    default: 'text',
+  },
+  /**
    * @description The placeholder text which is shown in the input, when it's empty.
    * @property {props}
    * @type {String}
@@ -340,6 +350,26 @@ export default {
   deleteOnBackspace: {
     default: true,
     type: Boolean,
+  },
+  /**
+   * @description Defines if it's possible to reorder items using drag and drop.
+   * @property {props}
+   * @type {Boolean}
+   * @default false
+   */
+  isDraggable: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * @description Defines if items use handle to be dragged.
+   * @property {props}
+   * @type {Boolean}
+   * @default false
+   */
+  draggableHandle: {
+    type: Boolean,
+    default: false,
   },
   // event handlers
   onBeforeAddingTag: Function,

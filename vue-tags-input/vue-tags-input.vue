@@ -10,141 +10,161 @@
     :style="$attrs.style"
   >
     <div class="ti-input">
-      <ul v-if="tagsCopy" class="ti-tags">
-        <li
-          v-for="(tag, index) in tagsCopy"
-          :key="index"
-          :style="tag.style"
-          :class="[
-            { 'ti-editing': tagsEditStatus[index] },
-            tag.tiClasses,
-            tag.classes,
-            { 'ti-deletion-mark': isMarked(index) }
-          ]"
-          tabindex="0"
-          class="ti-tag"
-          @click="$emit('tag-clicked', { tag, index })"
-        >
-          <div class="ti-content">
-            <div
-              v-if="$slots['tag-left']"
-              class="ti-tag-left"
-            >
+      <draggable
+        :is="isDraggable ? 'draggable' : 'ul'"
+        tag="ul"
+        group="tags"
+        class="ti-tags"
+        :list="tagsCopy"
+        item-key="text"
+        :handle="draggableHandle ? '.tag-handle' : ''"
+        ghost-class="ghost-tag"
+        drag-class="drag-tag"
+        @start="drag=true"
+        @end="drag=false; tagOrderChanged()"
+      >
+        <template #item="{ element, index }">
+          <li
+            :key="index"
+            :style="element.style"
+            :class="[
+              { 'ti-editing': tagsEditStatus[index] },
+              element.tiClasses,
+              element.classes,
+              { 'ti-deletion-mark': isMarked(index) }
+            ]"
+            tabindex="0"
+            class="ti-tag item"
+            @click="$emit('tag-clicked', { element, index })">
+            <div class="ti-content">
               <slot
-                name="tag-left"
-                :tag="tag"
-                :index="index"
-                :edit="tagsEditStatus[index]"
-                :perform-save-edit="performSaveTag"
-                :perform-delete="performDeleteTag"
-                :perform-cancel-edit="cancelEdit"
-                :perform-open-edit="performEditTag"
-                :deletion-mark="isMarked(index)"
-              />
-            </div>
-            <div :ref="setTagCenter" class="ti-tag-center">
+                v-if="$slots['tag-handle'] && draggableHandle"
+                name="tag-handle"
+                class="tag-handle"/>
               <span
-                v-if="!$slots['tag-center']"
-                :class="{ 'ti-hidden': tagsEditStatus[index] }"
-                @click="performEditTag(index)"
-              >{{ tag.text }}</span>
-              <tag-input
-                v-if="!$slots['tag-center']"
-                :scope="{
-                  edit: tagsEditStatus[index],
-                  maxlength,
-                  tag,
-                  index,
-                  validateTag: createChangedTag,
-                  performCancelEdit: cancelEdit,
-                  performSaveEdit: performSaveTag,
-                }"
+                v-if="!$slots['tag-handle'] && draggableHandle"
+                class="tag-handle">::</span>
+              <div
+                v-if="$slots['tag-left']"
+                class="ti-tag-left"
+              >
+                <slot
+                  name="tag-left"
+                  :tag="element"
+                  :index="index"
+                  :edit="tagsEditStatus[index]"
+                  :perform-save-edit="performSaveTag"
+                  :perform-delete="performDeleteTag"
+                  :perform-cancel-edit="cancelEdit"
+                  :perform-open-edit="performEditTag"
+                  :deletion-mark="isMarked(index)"
+                />
+              </div>
+              <div :ref="setTagCenter" class="ti-tag-center">
+                <span
+                  v-if="!$slots['tag-center']"
+                  :class="{ 'ti-hidden': tagsEditStatus[index] }"
+                  @click="performEditTag(index)">
+                  {{ element.text }}
+                </span>
+                <tag-input
+                  v-if="!$slots['tag-center']"
+                  :scope="{
+                    edit: tagsEditStatus[index],
+                    maxlength,
+                    element,
+                    index,
+                    validateTag: createChangedTag,
+                    performCancelEdit: cancelEdit,
+                    performSaveEdit: performSaveTag,
+                  }"
+                />
+                <slot
+                  name="tag-center"
+                  :tag="element"
+                  :index="index"
+                  :maxlength="maxlength"
+                  :edit="tagsEditStatus[index]"
+                  :perform-save-edit="performSaveTag"
+                  :perform-delete="performDeleteTag"
+                  :perform-cancel-edit="cancelEdit"
+                  :validate-tag="createChangedTag"
+                  :perform-open-edit="performEditTag"
+                  :deletion-mark="isMarked(index)"
+                />
+              </div>
+              <div
+                v-if="$slots['tag-right']"
+                class="ti-tag-right"
+              >
+                <slot
+                  name="tag-right"
+                  :tag="element"
+                  :index="index"
+                  :edit="tagsEditStatus[index]"
+                  :perform-save-edit="performSaveTag"
+                  :perform-delete="performDeleteTag"
+                  :perform-cancel-edit="cancelEdit"
+                  :perform-open-edit="performEditTag"
+                  :deletion-mark="isMarked(index)"
+                />
+              </div>
+            </div>
+            <div class="ti-actions">
+              <!-- dont use v-if and v-else here -> different event calling on click?! -->
+              <i
+                v-if="!$slots['tag-actions']"
+                v-show="tagsEditStatus[index]"
+                class="ti-icon-undo"
+                @click="cancelEdit(index)"
+              />
+              <i
+                v-if="!$slots['tag-actions']"
+                v-show="!tagsEditStatus[index]"
+                class="ti-icon-close"
+                @click="performDeleteTag(index)"
               />
               <slot
-                name="tag-center"
-                :tag="tag"
+                v-if="$slots['tag-actions']"
+                name="tag-actions"
+                :tag="element"
                 :index="index"
-                :maxlength="maxlength"
                 :edit="tagsEditStatus[index]"
                 :perform-save-edit="performSaveTag"
                 :perform-delete="performDeleteTag"
                 :perform-cancel-edit="cancelEdit"
-                :validate-tag="createChangedTag"
                 :perform-open-edit="performEditTag"
                 :deletion-mark="isMarked(index)"
               />
             </div>
-            <div
-              v-if="$slots['tag-right']"
-              class="ti-tag-right"
-            >
-              <slot
-                name="tag-right"
-                :tag="tag"
-                :index="index"
-                :edit="tagsEditStatus[index]"
-                :perform-save-edit="performSaveTag"
-                :perform-delete="performDeleteTag"
-                :perform-cancel-edit="cancelEdit"
-                :perform-open-edit="performEditTag"
-                :deletion-mark="isMarked(index)"
-              />
-            </div>
-          </div>
-          <div class="ti-actions">
-            <!-- dont use v-if and v-else here -> different event calling on click?! -->
-            <i
-              v-if="!$slots['tag-actions']"
-              v-show="tagsEditStatus[index]"
-              class="ti-icon-undo"
-              @click="cancelEdit(index)"
-            />
-            <i
-              v-if="!$slots['tag-actions']"
-              v-show="!tagsEditStatus[index]"
-              class="ti-icon-close"
-              @click="performDeleteTag(index)"
-            />
-            <slot
-              v-if="$slots['tag-actions']"
-              name="tag-actions"
-              :tag="tag"
-              :index="index"
-              :edit="tagsEditStatus[index]"
-              :perform-save-edit="performSaveTag"
-              :perform-delete="performDeleteTag"
-              :perform-cancel-edit="cancelEdit"
-              :perform-open-edit="performEditTag"
-              :deletion-mark="isMarked(index)"
-            />
-          </div>
-        </li>
-        <li class="ti-new-tag-input-wrapper">
-          <input
-            ref="newTagInput"
-            v-bind="$attrs"
-            :class="[createClasses(newTag, tags, validation, isDuplicate)]"
-            :placeholder="placeholder"
-            :value="newTag"
-            :maxlength="maxlength"
-            :disabled="disabled"
-            type="text"
-            size="1"
-            class="ti-new-tag-input"
-            @keydown="performAddTags(
-              filteredAutocompleteItems[selectedItem] || newTag, $event
-            )"
-            @paste="addTagsFromPaste"
-            @keydown.delete="invokeDelete"
-            @keydown.tab="performBlur"
-            @keydown.up="selectItem($event, 'before')"
-            @keydown.down="selectItem($event, 'after')"
-            @input="updateNewTag"
-            @focus="focused = true"
-            @click="addOnlyFromAutocomplete ? false : selectedItem = null"
-          >
-        </li>
-      </ul>
+          </li>
+        </template>
+      </draggable>
+      <div class="ti-new-tag-input-wrapper">
+        <input
+          ref="newTagInput"
+          v-bind="$attrs"
+          :class="[createClasses(newTag, tags, validation, isDuplicate)]"
+          :placeholder="placeholder"
+          :value="newTag"
+          :maxlength="maxlength"
+          :disabled="disabled"
+          :type="inputType"
+          size="1"
+          class="ti-new-tag-input"
+          @keydown="performAddTags(
+            filteredAutocompleteItems[selectedItem] || newTag, $event
+          )"
+          @paste="addTagsFromPaste"
+          @keydown.delete="invokeDelete"
+          @keydown.tab="performBlur"
+          @keydown.up="selectItem($event, 'before')"
+          @keydown.down="selectItem($event, 'after')"
+          @input="updateNewTag"
+          @focus="focused = true"
+          @click="performClick($event)"
+        >
+      </div>
     </div>
     <slot name="between-elements" />
     <div
