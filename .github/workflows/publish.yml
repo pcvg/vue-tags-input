@@ -19,17 +19,11 @@ jobs:
         with:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           BODY_FAIL: "Linters failing on vue-tags-input."
-  publish:
-    name: Publish
-    needs: [linters]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
+      - name: Publish package
       - uses: actions/setup-node@v1
         with:
           node-version: '16.x'
           registry-url: https://registry.npmjs.org/
-      - run: npm install
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
