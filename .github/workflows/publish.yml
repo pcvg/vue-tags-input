@@ -1,0 +1,43 @@
+name: Publish
+on:
+  push:
+    tags:
+       - '*'
+jobs:
+  linters:
+    name: Run linters
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Install dependencies
+        run: npm install
+      - name: Run linters
+        run: npm run lint
+      - name: Notify
+        if: failure()
+        uses: pcvg/slack-notification-action@main
+        with:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          BODY_FAIL: "Linters failing on vue-tags-input."
+  publish:
+    name: Publish
+    needs: [linters]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+          registry-url: https://registry.npmjs.org/
+      - run: npm install
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: Notify
+        uses: pcvg/slack-notification-action@main
+        with:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          TITLE_SUCCESS: ""
+          TITLE_FAIL: ""
+          BODY_SUCCESS: "Vue-tags-input package update has been uploaded to npmjs successfully."
+          BODY_FAIL: "Error processing vue-tags-input upload."
