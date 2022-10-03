@@ -11,10 +11,10 @@
       class="tags-input"
       @tags-changed="newTags => tags = newTags"
     >
-      <template slot="autocomplete-header">
+      <template #autocomplete-header>
         <strong>Select your favorite bike maker ↓</strong>
       </template>
-      <template slot="autocomplete-footer">
+      <template #autocomplete-footer>
         <small>
           <em>Or keep going with your worlds...</em>
         </small>

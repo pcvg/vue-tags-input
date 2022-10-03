@@ -3,12 +3,12 @@
 <template>
   <input
     v-if="scope.edit"
-    v-model="scope.tag.text"
+    :value="scope.tag.text"
     :maxlength="scope.maxlength"
     type="text"
     class="ti-tag-input"
     size="1"
-    @input="scope.validateTag(scope.index, $event)"
+    @input="$emit('input', $event.target.value); scope.validateTag(scope.index, $event)"
     @blur="scope.performCancelEdit(scope.index)"
     @keydown="scope.performSaveEdit(scope.index, $event)"
   >

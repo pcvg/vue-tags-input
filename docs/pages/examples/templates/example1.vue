@@ -26,26 +26,24 @@
       class="tags-input"
       @tags-changed="newTags => tags = newTags"
     >
-      <div
-        slot="autocomplete-item"
-        slot-scope="props"
+      <template
+        #autocomplete-item="props"
         class="my-item"
         @click="props.performAdd(props.item)"
       >
         <i class="material-icons" :style="{ color: props.item.iconColor }">
           {{ props.item.text }}
         </i>{{ props.item.text }}
-      </div>
-      <div
-        slot="tag-left"
-        slot-scope="props"
+      </template>
+      <template
+        #tag-left="props"
         class="my-tag-left"
         @click="props.performOpenEdit(props.index)"
       >
         <i class="material-icons" :style="{ color: props.tag.iconColor }">
           {{ props.tag.text }}
         </i>
-      </div>
+      </template>
     </vue-tags-input>
     <el-code lang="html" :code="require('./example1.demo.html')" />
     <el-code :code="require('./example1.demo.js')" />
