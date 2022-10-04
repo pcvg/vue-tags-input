@@ -5,7 +5,7 @@ on:
        - '*'
 jobs:
   linters:
-    name: Run linters
+    name: Test and publish
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
