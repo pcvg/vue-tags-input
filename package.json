@@ -22,11 +22,11 @@
   "main": "dist/vue-tags-input.js",
   "scripts": {
     "dev": "npm run docs",
+    "build": "yarn run build-lib",
     "docs": "cross-env NODE_ENV=development webpack-dev-server --hot --config ./build/docs.config.js",
     "build-docs": "cross-env NODE_ENV=production webpack --config ./build/docs.config.js --hide-modules",
     "analyze": "cross-env ANALYZE=true npm run build-docs",
     "build-lib": "webpack --config ./build/lib.config.js --hide-modules",
-    "build": "yarn run build-lib",
     "precommit": "lint-staged",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore . --ignore-pattern *.demo.*",
     "lint-fix": "eslint --fix --ignore-path .gitignore --ext .js,.vue . --ignore-pattern *.demo.*",
