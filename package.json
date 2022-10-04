@@ -1,6 +1,6 @@
 {
   "name": "@savingsunited/vue3-tags-input",
-  "version": "3.0.13",
+  "version": "3.0.14",
   "author": "Johannes Munari <johannesm@hotmail.de>",
   "license": "MIT",
   "description": "A tags input component for Vue 3 with autocompletion, custom validation, templating and much more",
@@ -22,7 +22,7 @@
   "main": "dist/vue-tags-input.js",
   "scripts": {
     "dev": "npm run docs",
-    "build": "npm run build-lib",
+    "prepare": "npm run build-lib",
     "docs": "cross-env NODE_ENV=development webpack-dev-server --hot --config ./build/docs.config.js",
     "build-docs": "cross-env NODE_ENV=production webpack --config ./build/docs.config.js --hide-modules",
     "analyze": "cross-env ANALYZE=true npm run build-docs",
