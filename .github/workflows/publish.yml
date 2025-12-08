@@ -22,7 +22,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Notify
-        uses: pcvg/slack-notification-action@main
+        uses: pcvg/slack-notification-action@v1
         with:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           TITLE_SUCCESS: ""
